@@ -1,0 +1,172 @@
+{
+  "topics": [
+    {
+      "id": "welcome",
+      "title": "Getting started",
+      "keys": "",
+      "text": "Connect the device's serial console (a USB-serial cable) and click its port under Available COM ports. The log starts at once and is saved in a new session folder (Session folder button).\n\nAdd the device's root password once (Setup > Terminal Log Viewer > Root login): the app then logs in by itself and measures memory and CPU, finds the model and IP and draws the live charts. Without it you still get the full log.",
+      "gif": "media/tutorial/welcome.gif"
+    },
+    {
+      "id": "root_login",
+      "title": "Root login: add the password once",
+      "keys": "Ctrl+Shift+T",
+      "text": "Memory / CPU monitoring, the live charts and the device's model and IP need a shell on the device. When no password is saved, a yellow note over the charts says so: click Add root password.\n\nAdd as many passwords as your devices use; the app tries the one that worked last on that port first. The user is root unless you change Login user. Passwords are kept encrypted and always shown masked (abc*****xyz), in the log too.",
+      "gif": "media/tutorial/root_login.gif"
+    },
+    {
+      "id": "tabs",
+      "title": "One tab per device",
+      "keys": "Ctrl+T",
+      "text": "Watch several devices in one window: + (or Ctrl+T) opens a tab, then pick its port. The dot on a tab is green while connected and turns red when something happened there (crash, reboot, memory leak) while you looked elsewhere.\n\nRight-click a tab to rename or color it. The tabs and their ports are reopened at the next start.",
+      "gif": "media/tutorial/tabs.gif"
+    },
+    {
+      "id": "all_devices",
+      "title": "All devices at a glance",
+      "keys": "",
+      "text": "The All devices tab shows every device of the window: its state, memory and CPU (now, average, min, max) and its charts, one row per device.\n\nClick a device to highlight its charts and events; click it again to show all.",
+      "gif": "media/tutorial/all_devices.gif"
+    },
+    {
+      "id": "device_info",
+      "title": "Model and IP, found by itself",
+      "keys": "",
+      "text": "After the login the app reads the device's model and IP address and shows them in the port list and on the tab. They follow the device when it reboots or its IP changes.\n\nRight-click the port to copy the model or the IP address.",
+      "gif": "media/tutorial/device_info.gif"
+    },
+    {
+      "id": "monitoring",
+      "title": "Memory and CPU of every process",
+      "keys": "Ctrl+M",
+      "text": "The right panel lists the free memory (MemAvailable) and the biggest processes with their memory and trend, and the total CPU with the busiest processes. Choose how often each is read (1 second to minutes) with the boxes above the tables.\n\nMonitoring > Polling sets what is measured and hides processes below a share of memory or CPU.",
+      "gif": "media/tutorial/monitoring.gif"
+    },
+    {
+      "id": "live_charts",
+      "title": "Live charts",
+      "keys": "Ctrl+J",
+      "text": "Free memory and total CPU over time, above the log. Hover to read a moment (the other chart follows); drag the bar under them to make them taller. Crashes, reboots and other events are marked with a triangle.\n\nThe ☰ menu adds processes as their own lines and sets the time window, from 10 minutes to 2 days.",
+      "gif": "media/tutorial/live_charts.gif"
+    },
+    {
+      "id": "issues",
+      "title": "Crashes and other big issues",
+      "keys": "",
+      "text": "Lines matching an Issues rule (segmentation faults, \"APP IS NOT ALIVE\", out of memory, ...) are shown red and listed under Detected Issues with their time. Reboots and crashes are also marked on the charts and in the report.\n\nAdd your own rules with the Issues button: plain text or a pattern.",
+      "gif": "media/tutorial/issues.gif"
+    },
+    {
+      "id": "memory_leak",
+      "title": "Memory leak detection",
+      "keys": "",
+      "text": "While memory is polled the app watches every process: one that keeps growing is listed under Detected Memory Leak with how fast it grows, and the free memory's trend is watched too.\n\nEach leak is marked on the charts and goes into the session report.",
+      "gif": "media/tutorial/memory_leak.gif"
+    },
+    {
+      "id": "highlights",
+      "title": "Highlights",
+      "keys": "",
+      "text": "Color the lines you care about: Highlights > type a word or a pattern and pick a color. Switch a rule off without deleting it; Aa matches upper / lower case.\n\nThe device's own colors are kept for everything else.",
+      "gif": "media/tutorial/highlights.gif"
+    },
+    {
+      "id": "filter",
+      "title": "Quick filter",
+      "keys": "Ctrl+G",
+      "text": "Type in the filter box above the log to see only the matching lines, live. ! shows the lines that do NOT match, ±N adds N lines before and after each match.\n\nSelect text in the log and press Ctrl+G to filter by it. The bookmark button saves a filter to use again; Esc clears it.",
+      "gif": "media/tutorial/filter.gif"
+    },
+    {
+      "id": "search",
+      "title": "Search the log",
+      "keys": "Ctrl+F",
+      "text": "Ctrl+F opens the search bar: every match is marked and Enter jumps to the next one. Choose how far back to search (the last 100 to 10,000 lines).\n\nWith text selected, Ctrl+F searches for it at once.",
+      "gif": "media/tutorial/search.gif"
+    },
+    {
+      "id": "lists",
+      "title": "Blacklist and whitelist",
+      "keys": "Ctrl+Shift+B / W",
+      "text": "Blacklist hides lines you never want to see (they are still saved in the log file). Whitelist shows only lines with one of its words.\n\nSelect text in the log and press Ctrl+Shift+B or Ctrl+Shift+W to add it.",
+      "gif": "media/tutorial/lists.gif"
+    },
+    {
+      "id": "regex",
+      "title": "Patterns (regular expressions)",
+      "keys": "",
+      "text": "Turn on .* to search, filter, highlight or catch issues with a pattern: error|fail|timeout finds any of the three, seg(mentation)? fault both spellings, pid \\d+ any process number.\n\nThe ? button lists examples - click one to use it.",
+      "gif": "media/tutorial/regex.gif"
+    },
+    {
+      "id": "regex_suggest",
+      "title": "Let the app write the pattern",
+      "keys": "",
+      "text": "Not sure how to write a pattern? Click ?, paste a few lines you want to find (and, if you like, lines you do not want), then Suggest. The app works out what they have in common and explains each pattern in plain words, with how many log lines it finds.\n\nUse puts it in the box. Selected log lines are filled in for you.",
+      "gif": "media/tutorial/regex_suggest.gif"
+    },
+    {
+      "id": "sharing",
+      "title": "Share the log: browser and TCP",
+      "keys": "",
+      "text": "Anyone on your network can follow the device: click the Web link in the right panel, or right-click it to copy a read-only link or one that can also type commands (it carries an access key). The page has the same filters, patterns and charts.\n\nTCP: connect with any terminal (e.g. PuTTY, raw) to the shown address.",
+      "gif": "media/tutorial/sharing.gif"
+    },
+    {
+      "id": "change_ip",
+      "title": "Change the device's IP",
+      "keys": "",
+      "text": "Hover the connected port and click Change IP (or right-click > Change IP): enter the new address, subnet and gateway. The app sends the commands through the console, so it works even when the device is unreachable over the network.\n\nThe device keeps this IP until it restarts.",
+      "gif": "media/tutorial/change_ip.gif"
+    },
+    {
+      "id": "pin",
+      "title": "Pin a line",
+      "keys": "Ctrl+P",
+      "text": "Click a line and press Ctrl+P to keep it above the log while the log scrolls on - handy for a version string or the first error.",
+      "gif": "media/tutorial/pin.gif"
+    },
+    {
+      "id": "shortcut_commands",
+      "title": "Shortcut commands",
+      "keys": "Ctrl+S",
+      "text": "Save commands you type often under a short name (Setup > Shortcut Commands), then type the name in the command box and press Enter. Tab completes names and file names; Up / Down goes through the history.",
+      "gif": "media/tutorial/shortcut_commands.gif"
+    },
+    {
+      "id": "shortcut_buttons",
+      "title": "Shortcut buttons",
+      "keys": "Ctrl+B",
+      "text": "Buttons under the right panel open a web page, run a command, open a folder or start a program with one click. {ip}, {port}, {model} and {session} are filled in with the device's values, so one button works for every device.\n\nClick + (Ctrl+B) to add one; right-click a button to edit, move or delete it.",
+      "gif": "media/tutorial/shortcut_buttons.gif"
+    },
+    {
+      "id": "test_cases",
+      "title": "Test cases",
+      "keys": "Ctrl+K",
+      "text": "Plan a long run as test cases (Monitoring > Test Cases): their names, how long each runs and how often, started now or at a set time. The bar above the log shows the running case; the charts show each case's span and averages.\n\nAt the end a report lists every case with its memory and CPU.",
+      "gif": "media/tutorial/test_cases.gif"
+    },
+    {
+      "id": "reports",
+      "title": "Reports",
+      "keys": "Ctrl+Z",
+      "text": "Ending a session (Ctrl+E) writes report.html into the session folder: the device, the issues, reboots, crashes and leaks, memory and CPU summaries and the test cases.\n\nRight-click Session folder to zip the whole session, or only the log file, to send it.",
+      "gif": "media/tutorial/reports.gif"
+    },
+    {
+      "id": "font_size",
+      "title": "Font size: Ctrl + mouse wheel",
+      "keys": "Ctrl+Wheel",
+      "text": "Hold Ctrl and turn the mouse wheel over the log to make the text bigger or smaller. Setup > UI scale makes the whole app bigger.",
+      "gif": "media/tutorial/font_size.gif"
+    },
+    {
+      "id": "updates",
+      "title": "Updates",
+      "keys": "",
+      "text": "The app checks once a day for a new version and shows a notice in the menu bar. Help > Check for updates > Update now downloads it, checks it, restarts and reopens your tabs; settings and logs are kept.",
+      "gif": "media/tutorial/updates.gif"
+    }
+  ]
+}

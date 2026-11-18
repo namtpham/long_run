@@ -1,0 +1,23 @@
+{
+  "app": "Long Run Tool",
+  "latest": "2.0.0",
+  "releases_page": "https://github.com/namtpham/long_run/releases",
+  "releases": [
+    {
+      "version": "2.0.0",
+      "date": "2026-11-18",
+      "notes": [
+        "First public release, for any embedded Linux device with a serial console",
+        "One tab per device and an All devices tab; auto login as root (user changeable) with your saved passwords",
+        "Memory and CPU of every process, live charts, crashes, reboots and memory leaks caught, a report for every session",
+        "Highlights, quick filter, search, blacklist and whitelist with plain text or patterns - and a pattern suggested from example lines",
+        "The log in any browser or over TCP, test cases, shortcut commands and buttons, Change IP, pinned lines",
+        "Help > Tutorial shows every feature; Help > Check for updates installs new versions"
+      ],
+      "download": {
+        "name": "LongRunTool_2.0.0.zip",
+        "url": "https://github.com/namtpham/long_run/releases/download/v2.0.0/LongRunTool_2.0.0.zip"
+      }
+    }
+  ]
+}

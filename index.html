@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Long Run Tool for embedded Linux devices</title>
+<meta name="description" content="Long Run Tool: a free Windows app for long-run testing of embedded Linux devices through their serial console - logs, memory and CPU of every process, crashes, memory leaks, live charts and reports. Downloads, what's new, feedback.">
+<link rel="icon" href="favicon.ico?v=5">
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #1d2330; --muted: #5f6b7a; --line: #e2e6ec;
+    --accent: #2f80d1; --accent-dark: #2468ad; --green: #27ae60; --tag: #eaf2fb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171c; --card: #1c2027; --text: #e6e9ee; --muted: #9aa5b4; --line: #2c323c;
+      --accent: #4a9be6; --accent-dark: #3a86cf; --tag: #22303f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.55 "Segoe UI", system-ui, -apple-system, sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 48px 0 32px; }
+  .brand { display: flex; align-items: center; gap: 18px; }
+  .brand img { width: 72px; height: 72px; }
+  h1 { margin: 0; font-size: 2rem; }
+  .tagline { margin: 4px 0 0; color: var(--muted); }
+  h1 .for { font-weight: 500; color: var(--muted); font-size: .62em; white-space: nowrap; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 26px; }
+  .btn { display: inline-block; padding: 10px 20px; border-radius: 6px; background: var(--accent);
+         color: #fff; text-decoration: none; font-weight: 600; }
+  .btn:hover { background: var(--accent-dark); }
+  .btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+  .btn.coffee { background: #ffdd00; color: #1b1b1b; }
+  .btn.coffee:hover { background: #f2d100; }
+  .btn.small { padding: 6px 14px; font-size: .9rem; }
+  .ver { color: var(--muted); font-size: .95rem; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+            padding: 22px 24px; margin-bottom: 20px; }
+  h2 { margin: 0 0 12px; font-size: 1.3rem; }
+  h3.sub { margin: 18px 0 4px; font-size: 1rem; }
+  .note { color: var(--muted); font-size: .93rem; }
+  code { font-family: Consolas, "Cascadia Mono", ui-monospace, monospace; font-size: .9em;
+         background: var(--tag); border-radius: 4px; padding: 0 4px; overflow-wrap: anywhere; }
+  /* What it is */
+  .intro p { margin: 0 0 10px; }
+  .uses { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 14px 0 0; }
+  .use { border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .use h3 { margin: 0 0 4px; font-size: 1rem; }
+  .use p { margin: 0; color: var(--muted); font-size: .92rem; }
+  .feats { margin: 14px 0 0; padding-left: 20px; columns: 2 300px; column-gap: 32px; }
+  .feats li { margin: 0 0 6px; break-inside: avoid; }
+  .steps { margin: 6px 0 0; padding-left: 22px; }
+  .steps li { margin: 0 0 6px; }
+  /* Download */
+  .dl-card { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; border: 1px solid var(--line);
+             border-radius: 8px; padding: 14px 16px; margin-top: 12px; }
+  .dl-card .dl-name { font-size: .85rem; overflow-wrap: anywhere; }
+  .dl-card .sha { font-size: .78rem; overflow-wrap: anywhere; }
+  .reqs { margin: 10px 0 0; padding-left: 20px; }
+  .reqs li { margin: 0 0 4px; }
+  /* What's new */
+  .release { padding: 14px 0; border-top: 1px solid var(--line); }
+  .release:first-of-type { border-top: 0; padding-top: 0; }
+  .release h3 { margin: 0; font-size: 1.05rem; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .release .date { color: var(--muted); font-weight: 400; font-size: .9rem; }
+  .release .tag { background: var(--tag); color: var(--accent); border-radius: 999px; padding: 1px 10px;
+                  font-size: .78rem; font-weight: 600; }
+  .release ul { margin: 6px 0 0; padding-left: 20px; }
+  .release li { margin: 2px 0; }
+  #more { background: none; border: 0; color: var(--accent); cursor: pointer; padding: 6px 0 0; font: inherit; }
+  footer { color: var(--muted); font-size: .88rem; padding: 10px 0 40px; display: flex;
+           flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; }
+  /* How to use: the app's Help > Tutorial (tutorial.json, media/tutorial/) */
+  .howto { display: grid; gap: 34px; }
+  .topic h3 { margin: 2px 0 6px; font-size: 1.02rem; }
+  .topic h3 kbd { font: 600 .78rem Consolas, ui-monospace, monospace; color: var(--accent); background: var(--tag);
+                  border-radius: 4px; padding: 1px 6px; margin-left: 8px; }
+  .topic p { margin: 0 0 8px; }
+  /* Each animation the full width of the page (its own size at most); a
+     click opens it larger, in the screenshot viewer. */
+  .topic a.zoom { display: block; max-width: 1000px; margin-top: 10px; border: 1px solid var(--line);
+                  border-radius: 8px; overflow: hidden; cursor: zoom-in; background: #0d0d0d; }
+  .topic a.zoom img { display: block; width: 100%; height: auto; }
+  .topic .enlarge { color: var(--muted); font-size: .85rem; margin: 4px 2px 0; }
+  /* See it: the demo video and the screenshots (media/; hidden while there are none) */
+  #see h3 { margin: 0 0 8px; font-size: 1.02rem; }
+  #see .clip { margin-bottom: 22px; }
+  .demo { width: 100%; border-radius: 8px; background: #000; display: block; }
+  /* One under the other, each the page's width; a click opens it larger. */
+  .shots { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  .shots a { display: block; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; cursor: zoom-in; }
+  .shots img { display: block; width: 100%; height: auto; transition: transform .2s; }
+  .shots a:hover img { transform: scale(1.02); }
+  .shots figcaption { color: var(--muted); font-size: .85rem; padding: 6px 2px 0; }
+  /* Screenshot viewer: over the page, Esc / click outside / swipe down to close */
+  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(8,10,14,.95); display: flex;
+        flex-direction: column; align-items: center; justify-content: center; padding: 48px 12px 16px;
+        touch-action: pan-y pinch-zoom; }
+  .lb[hidden] { display: none; }
+  .lb img { max-width: calc(100% - 112px); max-height: calc(100vh - 110px); object-fit: contain; border-radius: 4px;
+            box-shadow: 0 6px 30px rgba(0,0,0,.5); background: #fff; }
+  .lb .cap { color: #e6e9ee; font-size: .92rem; margin-top: 10px; min-height: 1.2em; text-align: center; }
+  .lb button { position: absolute; border: 0; background: rgba(255,255,255,.12); color: #fff; cursor: pointer;
+               width: 44px; height: 44px; border-radius: 50%; font-size: 22px; line-height: 44px; padding: 0;
+               z-index: 1; }
+  .lb button:hover { background: rgba(255,255,255,.25); }
+  .lb .close { top: 10px; right: 12px; }
+  .lb .prev { left: 12px; top: 50%; transform: translateY(-50%); }
+  .lb .next { right: 12px; top: 50%; transform: translateY(-50%); }
+  .lb .count { position: absolute; top: 20px; left: 16px; color: #aab3c0; font-size: .85rem; }
+  @media (max-width: 560px) {
+    .lb { padding-bottom: 70px; }
+    .lb img { max-width: 100%; max-height: calc(100vh - 150px); }
+    .lb .prev, .lb .next { top: auto; bottom: 14px; transform: none; }
+  }
+  /* Feedback form */
+  form.fb { display: grid; gap: 12px; margin-top: 6px; }
+  .fb .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .fb label { display: grid; gap: 4px; font-size: .9rem; font-weight: 600; }
+  .fb label span.hint-opt { color: var(--muted); font-weight: 400; }
+  .fb input, .fb select, .fb textarea { font: inherit; font-weight: 400; color: var(--text); background: var(--bg);
+           border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; width: 100%; }
+  .fb textarea { min-height: 120px; resize: vertical; }
+  .fb input:focus, .fb select:focus, .fb textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .fb .send { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .fb button { border: 0; cursor: pointer; font: inherit; }
+  .fb button:disabled { opacity: .6; cursor: default; }
+  .fb .status { font-size: .93rem; }
+  .fb .status.ok { color: var(--green); }
+  .fb .status.err { color: #d9534f; }
+  .hp { position: absolute; left: -10000px; }
+  .or { margin: 18px 0 0; }
+  @media (max-width: 560px) {
+    header { padding: 28px 0 20px; }
+    h1 { font-size: 1.55rem; }
+    .brand { gap: 12px; }
+    .brand img { width: 52px; height: 52px; }
+    section { padding: 18px 16px; }
+    .btn { padding: 9px 14px; }
+    .fb .row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <img src="icon.png?v=5" alt="">
+      <div>
+        <h1>Long Run Tool <span class="for">for embedded Linux devices</span></h1>
+        <p class="tagline">Long-run testing through the serial console: the full log, memory and CPU of every process, crashes, memory leaks, live charts and reports. Free for Windows.</p>
+      </div>
+    </div>
+    <div class="cta">
+      <a class="btn" href="#download">Download</a>
+      <a class="btn secondary" href="#about">What it is</a>
+      <a class="btn secondary" href="#how">How to use</a>
+      <a class="btn secondary" href="#whats-new">What's new</a>
+      <a class="btn secondary" href="#feedback">Feedback</a>
+      <a class="btn coffee" href="https://buymeacoffee.com/namtpham" target="_blank" rel="noopener">&#9749; Buy me a coffee</a>
+      <span class="ver" id="latest-label"></span>
+    </div>
+  </header>
+
+  <section id="about" class="intro">
+    <h2>What it is</h2>
+    <p>Embedded Linux devices - gateways, controllers, boards, smart devices of every kind - have to run for
+      days without a crash, a reboot or a slow memory leak. Long Run Tool connects to the device's
+      <b>serial console</b>, keeps the complete log of every session and watches the device while it runs:
+      the memory and CPU of every process, crashes and other serious messages, reboots and memory leaks,
+      drawn as live charts and summed up in a report at the end.</p>
+    <p>It only needs the console (a USB-serial cable) and the device's root password: nothing is installed
+      on the device, and it works even when the device is unreachable over the network.</p>
+    <div class="uses">
+      <div class="use">
+        <h3>Long runs and soak tests</h3>
+        <p>Leave several devices running for days: every line is saved, every crash, reboot and leak is
+          caught, and each device's memory and CPU are charted.</p>
+      </div>
+      <div class="use">
+        <h3>Test cases</h3>
+        <p>Run a plan of test cases, by hand or on a schedule; the report compares memory and CPU of each
+          case.</p>
+      </div>
+      <div class="use">
+        <h3>Daily console work</h3>
+        <p>A better serial terminal: filters, highlights, patterns, shortcut commands and buttons, and the log
+          shared with your team in a browser.</p>
+      </div>
+    </div>
+    <ul class="feats">
+      <li><b>One tab per device</b>, and an <b>All devices</b> tab with every device's state, memory, CPU and charts.</li>
+      <li><b>Auto login</b> as root (or the user you set) with the passwords you saved; the <b>model and IP</b> are found by themselves.</li>
+      <li><b>Memory and CPU of every process</b>, polled from every second to every few minutes, with trends.</li>
+      <li><b>Live charts</b> of free memory and total CPU (processes on request), events marked, minutes to days of history.</li>
+      <li><b>Big issues caught:</b> segmentation faults, "not alive", out of memory, reboots - and your own rules.</li>
+      <li><b>Memory leak detection</b> with robust trends over hours, not fooled by a single step.</li>
+      <li><b>Highlights, quick filter, search, blacklist and whitelist</b>, with plain text or patterns.</li>
+      <li><b>Pattern suggestion:</b> paste a few lines and the app writes the regular expression and explains it.</li>
+      <li><b>Share the log</b> in any browser on your network or over TCP; with the access key, others can type commands too.</li>
+      <li><b>Change the IP</b> through the console, <b>pin</b> a line, <b>shortcut commands</b> and <b>shortcut buttons</b> (web page, command, folder, program).</li>
+      <li><b>Test cases</b> with notes, schedule and a report; a <b>session report</b> for every run.</li>
+      <li><b>Up to date:</b> checks for new versions; <b>Update now</b> installs them and reopens your tabs.</li>
+    </ul>
+    <h3 class="sub">Getting started</h3>
+    <ol class="steps note">
+      <li>Connect the device's serial console and start the app: the device's port is listed under
+        <b>Available COM ports</b>. Click it - the log starts and is saved in a session folder.</li>
+      <li>Add the device's root password once: click <b>Add root password</b> on the note over the charts
+        (or Setup &gt; Terminal Log Viewer &gt; Root login). The app logs in and starts measuring.</li>
+      <li>More devices: <b>+</b> opens a tab for each. Help &gt; <b>Tutorial</b> (F1) shows every feature.</li>
+    </ol>
+  </section>
+
+  
+<section id="see" hidden>
+    <h2>See it</h2>
+    <div class="clip" id="clip-show" hidden>
+      <h3>In use</h3>
+      <video class="demo" id="demo" controls muted loop playsinline preload="metadata"></video>
+    </div>
+    <h3 id="shots-h" hidden>Screenshots <span class="note">(simulated devices; click to enlarge)</span></h3>
+    <div class="shots" id="shots"></div>
+  </section>
+
+  <section id="how" hidden>
+    <h2>How to use</h2>
+    <p class="note">Every feature, a few seconds each: the same as Help &rsaquo; Tutorial (F1) in the app (simulated devices).</p>
+    <div class="howto" id="howto"></div>
+  </section>
+
+  <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Picture viewer">
+    <span class="count" id="lb-count"></span>
+    <button class="close" id="lb-close" aria-label="Close">&times;</button>
+    <button class="prev" id="lb-prev" aria-label="Previous">&#8249;</button>
+    <img id="lb-img" alt="">
+    <div class="cap" id="lb-cap"></div>
+    <button class="next" id="lb-next" aria-label="Next">&#8250;</button>
+  </div>
+
+  <section id="download">
+    <h2>Download</h2>
+    <p class="note" style="margin:0">Windows 10 / 11, 64-bit. One zip with everything in it: nothing else to install.</p>
+    <div class="dl-card">
+      <a class="btn" id="dl" href="https://github.com/namtpham/long_run/releases/latest">Download</a>
+      <div>
+        <div class="ver dl-name" id="dl-name">From the latest release on GitHub</div>
+        <div class="ver sha" id="dl-sha"></div>
+      </div>
+    </div>
+    <ul class="reqs note">
+      <li>Unzip it (right-click &gt; Extract All) anywhere you can write to, not Program Files, and start
+        <b>Long Run Tool.exe</b> in the <b>Long Run Tool</b> folder.</li>
+      <li>Windows may say "Windows protected your PC" for a new app: click <b>More info &gt; Run anyway</b>.</li>
+      <li>Your settings and saved passwords (encrypted for your Windows account) are kept in
+        <code>%APPDATA%\Long Run Tool</code>, the logs of each session in <code>device_logs</code> next to the app.</li>
+      <li>Your USB-serial cable may need its driver (most install by themselves).</li>
+    </ul>
+    <h3 class="sub">Updating</h3>
+    <p class="note" style="margin:0">The app tells you when a new version is out: by itself once a day (a notice in
+      the menu bar; switch it off in Help &gt; Check for updates), or at once with <b>Help &gt; Check for updates</b>.
+      Click <b>Update now</b>: it downloads the new version, checks it, restarts and reopens your tabs, and keeps
+      your settings and logs. If the app's folder cannot be written to, unzip the new version over it instead.</p>
+    <p class="note" style="margin:8px 0 0">Network blocks this website? The app then checks on github.com
+      instead, and the downloads are on the
+      <a href="https://github.com/namtpham/long_run/releases/latest">GitHub releases page</a>.</p>
+  </section>
+
+  
+<section id="whats-new">
+    <h2>What's new</h2>
+    <div id="releases"><p class="note">Loading…</p></div>
+    <button id="more" hidden>Show older versions</button>
+  </section>
+
+  <section id="feedback">
+    <h2>Feedback and bug reports</h2>
+    <p class="note">Questions, ideas, problems: write below<span id="fb-noacct">, no account needed</span>. For a bug,
+      please add the app version (Help &gt; About &gt; Copy app version), the device and what you did before it
+      happened. The files in the session's <code>debug</code> folder help too (they hold the device's log
+      lines; passwords are never written there).</p>
+    <form class="fb" id="fb" hidden>
+      <div class="row">
+        <label>Kind
+          <select name="kind">
+            <option>Feedback</option><option>Bug report</option><option>Idea</option><option>Question</option>
+          </select>
+        </label>
+        <label><span>App version <span class="hint-opt">(optional)</span></span>
+          <input name="version" placeholder="e.g. 2.0.0" maxlength="60">
+        </label>
+      </div>
+      <label>Message
+        <textarea name="message" required maxlength="5000" placeholder="What would you like to tell me?"></textarea>
+      </label>
+      <div class="row">
+        <label><span>Name <span class="hint-opt">(optional)</span></span>
+          <input name="name" maxlength="80" autocomplete="name">
+        </label>
+        <label><span>Email <span class="hint-opt">(optional, if you want an answer)</span></span>
+          <input name="email" type="email" maxlength="120" autocomplete="email">
+        </label>
+      </div>
+      <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="send">
+        <button class="btn" type="submit">Send</button>
+        <span class="status" id="fb-status" role="status"></span>
+      </div>
+    </form>
+    <p class="note or" id="fb-or"></p>
+    <div id="comments"></div>
+  </section>
+
+  <footer>
+    <span>Long Run Tool by <a href="https://namtpham.github.io/">Pham Thanh Nam</a> &middot; free to use</span>
+    <span>Finding it useful? <a class="btn coffee small" href="https://buymeacoffee.com/namtpham" target="_blank" rel="noopener">&#9749; Buy me a coffee</a></span>
+  </footer>
+</div>
+
+<script>
+const REPO = "namtpham/long_run";
+
+// Comments: giscus (GitHub Discussions of this repository).
+// Fill these in from https://giscus.app once Discussions are enabled there.
+const GISCUS = {
+  repo: REPO,
+  repoId: "",          // e.g. "R_kgDO..."
+  category: "Feedback",
+  categoryId: "",      // e.g. "DIC_kwDO..."
+};
+
+const SHOWN = 4;        // releases shown before "Show older versions"
+
+// Feedback form: messages go to your email through Web3Forms (free, no account
+// for the people writing). The same access key as the Objects Slideshow site.
+// Empty: the form is hidden and the page links to GitHub Issues.
+const WEB3FORMS_KEY = "658c4437-0601-4b97-ae49-45a2c129c203";
+
+// "See it": put the files in media/ (see media/README.md). Missing files are
+// skipped; with none at all the section is hidden.
+const DEMO_VIDEO = "media/demo.mp4";
+const DEMO_POSTER = "media/demo.jpg";
+// The pictures' revision: change it when new ones are saved, so browsers and
+// the Pages CDN fetch them again instead of a cached copy.
+const MEDIA_REV = "202611181200";
+const SCREENSHOTS = [
+  ["media/screenshot-1.png", "Three devices in tabs: live charts, the log, memory and CPU per process"],
+  ["media/screenshot-2.png", "The All devices tab: every device's state, memory, CPU and charts"],
+].map(([src, caption]) => [src + "?v=" + MEDIA_REV, caption]);
+
+function el(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  for (const k of kids) e.append(k);
+  return e;
+}
+
+fetch("versions.json", { cache: "no-store" })
+  .then(r => r.json())
+  .then(feed => {
+    document.getElementById("latest-label").textContent = "Latest: " + feed.latest;
+    // The zip of the latest release, straight from its download link (the
+    // release page also lists GitHub's "Source code" archives: only this
+    // website's files, not the app). Without one, the button opens the release.
+    const latest = feed.releases.find(r => r.version === feed.latest) || {};
+    const a = document.getElementById("dl");
+    a.textContent = "Download " + feed.latest;
+    if (latest.download && latest.download.url) {
+      const d = latest.download;
+      a.href = d.url;
+      document.getElementById("dl-name").textContent =
+        d.name + (d.size ? "  (" + Math.round(d.size / 1048576) + " MB)" : "");
+      if (d.sha256) document.getElementById("dl-sha").textContent = "SHA-256 " + d.sha256;
+    } else {
+      a.href = "https://github.com/" + REPO + "/releases/tag/v" + feed.latest;
+      document.getElementById("dl-name").textContent = "From the release page on GitHub";
+    }
+    const box = document.getElementById("releases");
+    box.textContent = "";
+    feed.releases.forEach((rel, i) => {
+      const h = el("h3", {}, "Version " + rel.version);
+      if (rel.date) h.append(el("span", { class: "date" }, rel.date));
+      if (rel.version === feed.latest) h.append(el("span", { class: "tag" }, "latest"));
+      const ul = el("ul");
+      (rel.notes || []).forEach(n => ul.append(el("li", {}, n)));
+      const tag = "https://github.com/" + REPO + "/releases/tag/v" + rel.version;
+      const div = el("div", { class: "release", id: "v" + rel.version }, h, ul);
+      if (i === 0) div.append(el("p", { class: "note" }, el("a", { href: tag }, "Release " + rel.version + " on GitHub")));
+      if (i >= SHOWN) div.hidden = true;
+      box.append(div);
+    });
+    const more = document.getElementById("more");
+    if (feed.releases.length > SHOWN) {
+      more.hidden = false;
+      more.onclick = () => { box.querySelectorAll(".release").forEach(d => d.hidden = false); more.hidden = true; };
+    }
+  })
+  .catch(() => {
+    document.getElementById("releases").innerHTML =
+      '<p class="note">The version list could not be loaded. See the <a href="https://github.com/' + REPO + '/releases">releases page</a>.</p>';
+  });
+
+(function comments() {
+  const box = document.getElementById("comments");
+  const issues = '<a href="https://github.com/' + REPO + '/issues/new">open an issue</a>';
+  if (!GISCUS.repoId || !GISCUS.categoryId) {
+    document.getElementById("fb-or").innerHTML = WEB3FORMS_KEY
+      ? "With a GitHub account you can also " + issues + "."
+      : "Please " + issues + " (needs a free GitHub account).";
+    return;
+  }
+  document.getElementById("fb-or").textContent = "With a GitHub account you can also comment in public:";
+  const s = document.createElement("script");
+  s.src = "https://giscus.app/client.js";
+  Object.entries({
+    "data-repo": GISCUS.repo, "data-repo-id": GISCUS.repoId,
+    "data-category": GISCUS.category, "data-category-id": GISCUS.categoryId,
+    "data-mapping": "specific", "data-term": "Feedback", "data-reactions-enabled": "1",
+    "data-input-position": "top", "data-theme": "preferred_color_scheme", "data-lang": "en",
+    "crossorigin": "anonymous",
+  }).forEach(([k, v]) => s.setAttribute(k, v));
+  s.async = true;
+  box.append(s);
+})();
+
+(function feedbackForm() {
+  const form = document.getElementById("fb");
+  if (!WEB3FORMS_KEY) { document.getElementById("fb-noacct").remove(); return; }
+  form.hidden = false;
+  const status = document.getElementById("fb-status");
+  const button = form.querySelector("button");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    if (f.get("botcheck")) return;
+    const kind = f.get("kind"), version = (f.get("version") || "").trim();
+    const body = {
+      access_key: WEB3FORMS_KEY,
+      subject: "Long Run Tool: " + kind + (version ? " (" + version + ")" : ""),
+      from_name: (f.get("name") || "").trim() || "Long Run Tool website",
+      kind, version: version || "-",
+      message: f.get("message"),
+      page: location.href,
+      browser: navigator.userAgent,
+    };
+    const email = (f.get("email") || "").trim();
+    if (email) { body.email = email; body.replyto = email; }
+    button.disabled = true;
+    status.className = "status";
+    status.textContent = "Sending…";
+    try {
+      const r = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(body),
+      });
+      const res = await r.json().catch(() => ({}));
+      if (!r.ok || !res.success) throw new Error(res.message || ("HTTP " + r.status));
+      form.reset();
+      status.className = "status ok";
+      status.textContent = "Thank you! Your message was sent.";
+    } catch (err) {
+      status.className = "status err";
+      status.textContent = "Could not send (" + err.message + "). Please try again later.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+
+// How to use: the topics of the app's Help > Tutorial (tutorial.json), with
+// their animations (media/tutorial/).
+(function howTo() {
+  fetch("tutorial.json", { cache: "no-store" })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      const section = document.getElementById("how"), box = document.getElementById("howto");
+      const topics = data.topics || [];
+      if (!topics.length) return;
+      section.hidden = false;           // first, so the (lazy) pictures load
+      const large = [];                 // [src, caption] for the viewer
+      topics.forEach((t, i) => {
+        const title = (i + 1) + ". " + t.title;
+        // gif_big: the same animation at full size, fetched only when opened.
+        const big = (t.gif_big || t.gif) + "?v=" + MEDIA_REV;
+        const img = el("img", { src: t.gif + "?v=" + MEDIA_REV, alt: t.title, loading: "lazy" });
+        const zoom = el("a", { class: "zoom", href: big, title: "Click to see it larger" }, img);
+        const at = large.push([big, title, true]) - 1;     // true: fill the screen
+        zoom.addEventListener("click", (e) => { e.preventDefault(); window.openViewer(large, at); });
+        const hint = el("p", { class: "enlarge" }, "Click the animation to see it larger.");
+        img.addEventListener("error", () => { zoom.remove(); hint.remove(); });
+        const h = el("h3", {}, title);
+        if (t.keys) h.append(el("kbd", {}, t.keys));
+        const text = el("div", {}, h,
+                        ...String(t.text || "").split("\n\n").map(p => el("p", {}, p)));
+        box.append(el("div", { class: "topic", id: "how-" + t.id }, text, zoom, hint));
+      });
+    })
+    .catch(() => {});
+})();
+
+(function seeIt() {
+  const section = document.getElementById("see");
+  const show = () => { section.hidden = false; };
+
+  // A short video: media/demo.mp4 (optional)
+  const video = document.getElementById("demo");
+  video.addEventListener("loadedmetadata", () => { document.getElementById("clip-show").hidden = false; show(); });
+  video.addEventListener("error", () => document.getElementById("clip-show").remove());
+  const probe = new Image();
+  probe.onload = () => { video.poster = DEMO_POSTER; };
+  probe.src = DEMO_POSTER;
+  video.src = DEMO_VIDEO;
+
+  // Screenshots: each is put in the page at once (hidden) and shown when it
+  // has loaded (an image outside the page with loading="lazy" never loads
+  // on iPhone / Safari). A click opens it large over the page.
+  const shots = document.getElementById("shots");
+  const loaded = [];          // [src, caption, figure] in SCREENSHOTS order
+  SCREENSHOTS.forEach(([src, caption], i) => {
+    const img = el("img", { src, alt: caption || "Screenshot " + (i + 1) });
+    const a = el("a", { href: src }, img);
+    const fig = el("figure", { style: "margin:0" }, a);
+    if (caption) fig.append(el("figcaption", {}, caption));
+    fig.hidden = true;
+    shots.append(fig);
+    const entry = [src, caption, fig];
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const visible = loaded.filter(x => !x[2].hidden);
+      openViewer(visible, visible.indexOf(entry));
+    });
+    const shown = () => {
+      if (!fig.hidden) return;
+      fig.hidden = false;
+      loaded.push(entry);
+      loaded.sort((p, q) => SCREENSHOTS.findIndex(s => s[0] === p[0]) - SCREENSHOTS.findIndex(s => s[0] === q[0]));
+      document.getElementById("shots-h").hidden = false;
+      show();
+    };
+    img.addEventListener("load", shown);
+    img.addEventListener("error", () => fig.remove());
+    if (img.complete && img.naturalWidth) shown();
+  });
+
+  const lb = document.getElementById("lb"), lbImg = document.getElementById("lb-img");
+  const lbCap = document.getElementById("lb-cap"), lbCount = document.getElementById("lb-count");
+  // The viewer shows one list at a time: the screenshots, or the How to use
+  // animations ([src, caption, fill] each). A screenshot shows at its own
+  // size at most; an animation is enlarged to fill the screen (up to twice
+  // its size), as that is what it was opened for.
+  let list = [], at = 0, lastFocus = null;
+  function fit() {
+    const fill = list[at] && list[at][2], w = lbImg.naturalWidth, h = lbImg.naturalHeight;
+    if (!fill || !w) { lbImg.style.width = ""; return; }
+    const small = window.innerWidth <= 560;
+    const k = Math.min((window.innerWidth - (small ? 24 : 112)) / w,
+                       (window.innerHeight - (small ? 150 : 110)) / h, 2);
+    lbImg.style.width = Math.round(w * Math.max(k, 0.1)) + "px";
+  }
+  lbImg.addEventListener("load", fit);
+  window.addEventListener("resize", fit);
+  function render() {
+    const [src, caption] = list[at];
+    lbImg.style.width = "";
+    lbImg.src = src;
+    if (lbImg.complete) fit();
+    lbImg.alt = caption || "Picture " + (at + 1);
+    lbCap.textContent = caption || "";
+    lbCount.textContent = (at + 1) + " / " + list.length;
+    const many = list.length > 1;
+    document.getElementById("lb-prev").hidden = document.getElementById("lb-next").hidden = !many;
+  }
+  function openViewer(items, i) {
+    if (i < 0 || !items.length) return;
+    list = items;
+    at = i;
+    lastFocus = document.activeElement;
+    render();
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    document.getElementById("lb-close").focus();
+  }
+  function closeViewer() {
+    lb.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus) lastFocus.focus();
+  }
+  window.openViewer = openViewer;
+  const step = (d) => { at = (at + d + list.length) % list.length; render(); };
+  document.getElementById("lb-close").onclick = closeViewer;
+  document.getElementById("lb-prev").onclick = (e) => { e.stopPropagation(); step(-1); };
+  document.getElementById("lb-next").onclick = (e) => { e.stopPropagation(); step(1); };
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeViewer(); });
+  document.addEventListener("keydown", (e) => {
+    if (lb.hidden) return;
+    if (e.key === "Escape") closeViewer();
+    else if (e.key === "ArrowLeft") step(-1);
+    else if (e.key === "ArrowRight") step(1);
+  });
+  // Swipe left / right: next / previous; swipe down: close.
+  let x0 = null, y0 = null;
+  lb.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 1) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; } else x0 = null;
+  }, { passive: true });
+  lb.addEventListener("touchend", (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    x0 = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) step(dx < 0 ? 1 : -1);
+    else if (dy > 80 && dy > Math.abs(dx)) closeViewer();
+  });
+})();
+</script>
+</body>
+</html>

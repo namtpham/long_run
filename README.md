@@ -35,7 +35,7 @@ every session and watches the device while it runs - for hours or days, several 
 
 1. Download the `.zip` from the [latest release](https://github.com/namtpham/long_run/releases/latest).
 2. Unpack it anywhere you can write to (not Program Files) and start `Long Run Tool.exe`.
-3. Click your device's port, then add its root password once (the note over the charts shows where).
+3. Click your device's port, then add its root password once (the yellow note above the log shows where).
 
 Windows may say "Windows protected your PC" for a new app: click **More info > Run anyway**.
 

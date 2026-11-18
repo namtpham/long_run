@@ -4,14 +4,14 @@
       "id": "welcome",
       "title": "Getting started",
       "keys": "",
-      "text": "Connect the device's serial console (a USB-serial cable) and click its port under Available COM ports. The log starts at once and is saved in a new session folder (Session folder button).\n\nAdd the device's root password once (Setup > Terminal Log Viewer > Root login): the app then logs in by itself and measures memory and CPU, finds the model and IP and draws the live charts. Without it you still get the full log.",
+      "text": "Connect the device's serial console (a USB-serial cable) and click its port under Available COM ports. The log starts at once and is saved in a new session folder (Session folder button).\n\nAdd the device's root password once (Setup > Terminal Log Viewer > Root login): the app then logs in by itself and measures memory and CPU, finds the model and IP and draws the live charts. Until a password is saved a yellow note above the log says so. Without it you still get the full log.",
       "gif": "media/tutorial/welcome.gif"
     },
     {
       "id": "root_login",
       "title": "Root login: add the password once",
       "keys": "Ctrl+Shift+T",
-      "text": "Memory / CPU monitoring, the live charts and the device's model and IP need a shell on the device. When no password is saved, a yellow note over the charts says so: click Add root password.\n\nAdd as many passwords as your devices use; the app tries the one that worked last on that port first. The user is root unless you change Login user. Passwords are kept encrypted and always shown masked (abc*****xyz), in the log too.",
+      "text": "Memory / CPU monitoring, the live charts and the device's model and IP need a shell on the device. When no password is saved, a yellow note above the log says so: click Add root password.\n\nAdd as many passwords as your devices use; the app tries the one that worked last on that port first. The user is root unless you change Login user. Passwords are kept encrypted and always shown masked (abc*****xyz), in the log too.",
       "gif": "media/tutorial/root_login.gif"
     },
     {
@@ -39,7 +39,7 @@
       "id": "monitoring",
       "title": "Memory and CPU of every process",
       "keys": "Ctrl+M",
-      "text": "The right panel lists the free memory (MemAvailable) and the biggest processes with their memory and trend, and the total CPU with the busiest processes. Choose how often each is read (1 second to minutes) with the boxes above the tables.\n\nMonitoring > Polling sets what is measured and hides processes below a share of memory or CPU.",
+      "text": "The right panel lists the free memory (MemAvailable) and the biggest processes with their memory and trend, and the total CPU with the busiest processes. Choose how often each is read (1 second to minutes) with the boxes above the tables.\n\nMonitoring > Polling sets, for each device, what is measured and hides processes below a share of memory or CPU.",
       "gif": "media/tutorial/monitoring.gif"
     },
     {

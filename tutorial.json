@@ -137,7 +137,7 @@
       "id": "command_shortcuts",
       "title": "Command shortcuts",
       "keys": "Ctrl+S",
-      "text": "Save commands you type often under a short name (Setup > Command Shortcuts), then type the name in the command box and press Enter. Tab completes names and file names; Up / Down goes through the history.",
+      "text": "Save commands you type often under a short name (Setup > Command Shortcuts), then type the name in the command box and press Enter. After you type a long command the app offers to save it as one. A name that is also a Linux command (top, free, ...) is marked: it would hide that command. Tab completes names and file names; Up / Down goes through the history.",
       "gif": "media/tutorial/command_shortcuts.gif"
     },
     {

@@ -46,14 +46,14 @@
       "id": "monitoring",
       "title": "Memory and CPU of every process",
       "keys": "Ctrl+M",
-      "text": "The right panel lists the free memory (MemAvailable) and the biggest processes with their memory and trend, and the total CPU with the busiest processes. Choose how often each is read (1 second to minutes) with the boxes above the tables.\n\nMonitoring > Polling sets, for each device, what is measured and hides processes below a share of memory or CPU.",
+      "text": "The right panel lists the free memory (MemAvailable) and the biggest processes with their memory and trend, and the total CPU with the busiest processes. Choose how often each is read (1 second to minutes) with the boxes above the tables.\n\nMonitoring > Polling sets, for each device, what is measured and hides processes below a share of memory or CPU. Right-click a table to stop polling memory or CPU, or to hide a table.",
       "gif": "media/tutorial/monitoring.gif"
     },
     {
       "id": "live_charts",
       "title": "Live charts",
       "keys": "Ctrl+J",
-      "text": "Free memory and total CPU over time, above the log. Hover to read a moment (the other chart follows); drag the bar under them to make them taller. Crashes, reboots and other events are marked with a triangle.\n\nThe ☰ menu adds processes as their own lines and sets the time window, from 10 minutes to 2 days.",
+      "text": "Free memory and total CPU over time, above the log. Hover to read a moment (the other chart follows); drag the bar under them to make them taller. Crashes, reboots and other events are marked with a triangle.\n\nThe ☰ menu adds processes as their own lines and sets the time window, from 10 minutes to 2 days. Right-click a chart to hide it.",
       "gif": "media/tutorial/live_charts.gif"
     },
     {

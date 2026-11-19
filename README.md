@@ -28,7 +28,7 @@ every session and watches the device while it runs - for hours or days, several 
 - **Memory and CPU of every process**, **live charts**, **crashes and other big issues**, **memory leak detection**.
 - **Highlights, quick filter, search, blacklist / whitelist** with plain text or patterns - and a **pattern suggested** from a few example lines.
 - The log in **any browser** on your network or **over TCP**, with commands typed from there if you allow it.
-- **Test cases**, a **report** for every session, **shortcut commands and buttons**, **Change IP**, **pinned lines**.
+- **Test cases**, a **report** for every session, **command shortcuts and shortcut buttons**, **Change IP**, **pinned lines**.
 - Updates itself (Help > Check for updates > Update now); Help > Tutorial (F1) shows every feature.
 
 ## Get it

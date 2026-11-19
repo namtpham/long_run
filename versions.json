@@ -11,7 +11,7 @@
         "One tab per device and an All devices tab; auto login as root (user changeable) with your saved passwords",
         "Memory and CPU of every process, live charts, crashes, reboots and memory leaks caught, a report for every session",
         "Highlights, quick filter, search, blacklist and whitelist with plain text or patterns - and a pattern suggested from example lines",
-        "The log in any browser or over TCP, test cases, shortcut commands and buttons, Change IP, pinned lines",
+        "The log in any browser or over TCP, test cases, command shortcuts and shortcut buttons, Change IP, pinned lines",
         "Command palette (Ctrl+Shift+P): find and run any command",
         "Help > Try with a simulated device: see every feature without a real device",
         "Help > Tutorial shows every feature; Help > Check for updates installs new versions; errors can be reported with one click"

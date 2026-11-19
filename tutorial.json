@@ -4,7 +4,7 @@
       "id": "welcome",
       "title": "Getting started",
       "keys": "",
-      "text": "Connect the device's serial console (a USB-serial cable) and click its port under Available COM ports. The log starts at once and is saved in a new session folder (Session folder button).\n\nAdd the device's root password once (Setup > Terminal Log Viewer > Root login): the app then logs in by itself and measures memory and CPU, finds the model and IP and draws the live charts. Until a password is saved a yellow note above the log says so. Without it you still get the full log.",
+      "text": "Connect the device's serial console (a USB-serial cable) and click its port under Available COM ports. The log starts at once and is saved in a new session folder (Session folder button).\n\nAdd the device's root password once (Setup > Terminal Log Viewer > Root login): the app then logs in by itself and measures memory and CPU, finds the model and IP and draws the live charts. Until a password is saved a yellow note above the log says so. Without it you still get the full log.\n\nNo device at hand? Help > Try with a simulated device connects a made-up one (DEMO1) that logs in by itself, so you can try everything.",
       "gif": "media/tutorial/welcome.gif"
     },
     {
@@ -134,11 +134,11 @@
       "gif": "media/tutorial/pin.gif"
     },
     {
-      "id": "shortcut_commands",
-      "title": "Shortcut commands",
+      "id": "command_shortcuts",
+      "title": "Command shortcuts",
       "keys": "Ctrl+S",
-      "text": "Save commands you type often under a short name (Setup > Shortcut Commands), then type the name in the command box and press Enter. Tab completes names and file names; Up / Down goes through the history.",
-      "gif": "media/tutorial/shortcut_commands.gif"
+      "text": "Save commands you type often under a short name (Setup > Command Shortcuts), then type the name in the command box and press Enter. Tab completes names and file names; Up / Down goes through the history.",
+      "gif": "media/tutorial/command_shortcuts.gif"
     },
     {
       "id": "shortcut_buttons",

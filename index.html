@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Long Run Tool for embedded Linux devices</title>
-<meta name="description" content="Long Run Tool: a free Windows app for long-run testing of embedded Linux devices through their serial console - logs, memory and CPU of every process, crashes, memory leaks, live charts and reports. Downloads, what's new, feedback.">
+<meta name="description" content="Long Run Tool: a free Windows and Linux app for long-run testing of embedded Linux devices through their serial console - logs, memory and CPU of every process, crashes, memory leaks, live charts and reports. Downloads, what's new, feedback.">
 <link rel="icon" href="favicon.ico?v=5">
 <style>
   :root {
@@ -151,7 +151,7 @@
       <img src="icon.png?v=5" alt="">
       <div>
         <h1>Long Run Tool <span class="for">for embedded Linux devices</span></h1>
-        <p class="tagline">Long-run testing through the serial console: the full log, memory and CPU of every process, crashes, memory leaks, live charts and reports. Free for Windows.</p>
+        <p class="tagline">Long-run testing through the serial console: the full log, memory and CPU of every process, crashes, memory leaks, live charts and reports. Free for Windows and Linux.</p>
       </div>
     </div>
     <div class="cta">
@@ -243,9 +243,11 @@
 
   <section id="download">
     <h2>Download</h2>
-    <p class="note" style="margin:0">Windows 10 / 11, 64-bit. One zip with everything in it: nothing else to install.</p>
+    <p class="note" style="margin:0">64-bit, with everything in it: nothing else to install. Pick your system
+      <span id="dl-yours"></span>.</p>
+    <h3 class="sub">Windows 10 / 11</h3>
     <div class="dl-card">
-      <a class="btn" id="dl" href="https://github.com/namtpham/long_run/releases/latest">Download</a>
+      <a class="btn" id="dl" href="https://github.com/namtpham/long_run/releases/latest">Download for Windows</a>
       <div>
         <div class="ver dl-name" id="dl-name">From the latest release on GitHub</div>
         <div class="ver sha" id="dl-sha"></div>
@@ -258,6 +260,25 @@
       <li>Your settings and saved passwords (encrypted for your Windows account) are kept in
         <code>%APPDATA%\Long Run Tool</code>, the logs of each session in <code>device_logs</code> next to the app.</li>
       <li>Your USB-serial cable may need its driver (most install by themselves).</li>
+    </ul>
+    <h3 class="sub">Linux</h3>
+    <div class="dl-card">
+      <a class="btn" id="dl-linux" href="https://github.com/namtpham/long_run/releases/latest">Download for Linux</a>
+      <div>
+        <div class="ver dl-name" id="dl-linux-name">From the latest release on GitHub</div>
+        <div class="ver sha" id="dl-linux-sha"></div>
+      </div>
+    </div>
+    <ul class="reqs note">
+      <li>Ubuntu 22.04 or newer, Debian 12, Fedora, Arch and others (x86-64). Unpack it where you like and start
+        <b>Long Run Tool</b> in the <b>Long Run Tool</b> folder:
+        <code>tar xzf LongRunTool_*_linux.tar.gz &amp;&amp; "Long Run Tool/Long Run Tool"</code></li>
+      <li><code>Long Run Tool/install.sh</code> adds it to your applications menu.</li>
+      <li>Serial ports need your user in the <b>dialout</b> group (Arch: <b>uucp</b>):
+        <code>sudo usermod -aG dialout $USER</code>, then log out and in again.</li>
+      <li>Qt needs a few system libraries; if the app does not start:
+        <code>sudo apt install libxcb-cursor0 libxkbcommon-x11-0 libegl1</code> (Debian / Ubuntu).</li>
+      <li>Settings and saved passwords are in <code>~/.config/long_run_tool</code> (readable by you only).</li>
     </ul>
     <h3 class="sub">Updating</h3>
     <p class="note" style="margin:0">The app tells you when a new version is out: by itself once a day (a notice in
@@ -369,18 +390,23 @@ fetch("versions.json", { cache: "no-store" })
     // release page also lists GitHub's "Source code" archives: only this
     // website's files, not the app). Without one, the button opens the release.
     const latest = feed.releases.find(r => r.version === feed.latest) || {};
-    const a = document.getElementById("dl");
-    a.textContent = "Download " + feed.latest;
-    if (latest.download && latest.download.url) {
-      const d = latest.download;
-      a.href = d.url;
-      document.getElementById("dl-name").textContent =
-        d.name + (d.size ? "  (" + Math.round(d.size / 1048576) + " MB)" : "");
-      if (d.sha256) document.getElementById("dl-sha").textContent = "SHA-256 " + d.sha256;
-    } else {
-      a.href = "https://github.com/" + REPO + "/releases/tag/v" + feed.latest;
-      document.getElementById("dl-name").textContent = "From the release page on GitHub";
-    }
+    // "download" = Windows (.zip), "download_linux" = Linux (.tar.gz)
+    [["dl", "download", "Windows"], ["dl-linux", "download_linux", "Linux"]].forEach(([id, key, os]) => {
+      const a = document.getElementById(id);
+      a.textContent = "Download " + feed.latest + " for " + os;
+      const d = latest[key];
+      if (d && d.url) {
+        a.href = d.url;
+        document.getElementById(id + "-name").textContent =
+          d.name + (d.size ? "  (" + Math.round(d.size / 1048576) + " MB)" : "");
+        if (d.sha256) document.getElementById(id + "-sha").textContent = "SHA-256 " + d.sha256;
+      } else {
+        a.href = "https://github.com/" + REPO + "/releases/tag/v" + feed.latest;
+        document.getElementById(id + "-name").textContent = "From the release page on GitHub";
+      }
+    });
+    const linux = /Linux/.test(navigator.userAgent) && !/Android/.test(navigator.userAgent);
+    document.getElementById("dl-yours").textContent = "(you seem to use " + (linux ? "Linux" : "Windows") + ")";
     const box = document.getElementById("releases");
     box.textContent = "";
     feed.releases.forEach((rel, i) => {

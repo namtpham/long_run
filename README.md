@@ -6,7 +6,7 @@
 
 <p align="center">
   Long-run testing through the serial console: the full log, memory and CPU of every process,<br>
-  crashes, memory leaks, live charts and reports. A free app for Windows 10 / 11 (64-bit).
+  crashes, memory leaks, live charts and reports. A free app for Windows 10 / 11 and Linux (64-bit).
 </p>
 
 <p align="center">
@@ -33,8 +33,10 @@ every session and watches the device while it runs - for hours or days, several 
 
 ## Get it
 
-1. Download the `.zip` from the [latest release](https://github.com/namtpham/long_run/releases/latest).
-2. Unpack it anywhere you can write to (not Program Files) and start `Long Run Tool.exe`.
+1. Download it from the [latest release](https://github.com/namtpham/long_run/releases/latest):
+   the `.zip` for Windows, the `.tar.gz` for Linux.
+2. Unpack it anywhere you can write to (not Program Files) and start `Long Run Tool.exe`
+   (Linux: `Long Run Tool`; `install.sh` adds it to the applications menu).
 3. Click your device's port, then add its root password once (the yellow note above the log shows where).
 
 Windows may say "Windows protected your PC" for a new app: click **More info > Run anyway**.

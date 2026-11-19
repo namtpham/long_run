@@ -282,6 +282,9 @@
       please add the app version (Help &gt; About &gt; Copy app version), the device and what you did before it
       happened. The files in the session's <code>debug</code> folder help too (they hold the device's log
       lines; passwords are never written there).</p>
+    <p class="note">If the app itself hits an unexpected error, it offers to send an error report with one
+      click: the app and Windows versions and the error only - no logs, settings or device data - and you
+      see what is sent first.</p>
     <form class="fb" id="fb" hidden>
       <div class="row">
         <label>Kind
@@ -345,7 +348,7 @@ const DEMO_VIDEO = "media/demo.mp4";
 const DEMO_POSTER = "media/demo.jpg";
 // The pictures' revision: change it when new ones are saved, so browsers and
 // the Pages CDN fetch them again instead of a cached copy.
-const MEDIA_REV = "202611182320";
+const MEDIA_REV = "202611190110";
 const SCREENSHOTS = [
   ["media/screenshot-1.png", "Three devices in tabs: live charts, the log, memory and CPU per process"],
   ["media/screenshot-2.png", "The All devices tab: every device's state, memory, CPU and charts"],

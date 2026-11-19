@@ -8,6 +8,13 @@
       "gif": "media/tutorial/welcome.gif"
     },
     {
+      "id": "command_palette",
+      "title": "Find any command: Ctrl+Shift+P",
+      "keys": "Ctrl+Shift+P",
+      "text": "Press Ctrl+Shift+P and type a few letters - \"ip\", \"zip\", \"filter\", \"report\" - to find any command: every menu entry, what the device tab can do (Change IP, session folder, viewer links, test cases), your shortcut buttons and commands, the other tabs and these tutorial topics. Enter runs it.\n\nThe commands you ran last come first.",
+      "gif": "media/tutorial/command_palette.gif"
+    },
+    {
       "id": "root_login",
       "title": "Root login: add the password once",
       "keys": "Ctrl+Shift+T",

@@ -107,9 +107,9 @@
     },
     {
       "id": "regex_suggest",
-      "title": "Let the app write the pattern",
+      "title": "Pattern suggestion",
       "keys": "",
-      "text": "Not sure how to write a pattern? Click ?, paste a few lines you want to find (and, if you like, lines you do not want), then Suggest. The app works out what they have in common and explains each pattern in plain words, with how many log lines it finds.\n\nUse puts it in the box. Selected log lines are filled in for you.",
+      "text": "Not sure how to write a pattern? Select a line in the log (copy a few more if you like) and click ? next to the quick filter: the selected text is filled in, paste the others. Suggest works out what they have in common and explains each pattern in plain words, with how many log lines it finds.\n\nUse puts it in the filter. Lines you do not want can be added too.",
       "gif": "media/tutorial/regex_suggest.gif"
     },
     {
